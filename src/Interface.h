@@ -104,13 +104,13 @@ class Interface {
           std::cout << "==================" << std::endl;
           break;
 
-        case '5':                // Print All Notes
+        case '5':
           manager.printNotes();  // Print all notes
           std::cout << "==================" << std::endl;
           break;
 
         case '6':  // Exit
-          return;  // Exit the loop and end the program
+          return;
 
         default:
           std::cout << "Invalid option. Please try again."
