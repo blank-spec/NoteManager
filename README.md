@@ -36,7 +36,7 @@
     ./NoteManager
     ```
 
-## Configuration
+## Setting Up the Path for the Note File
 
 Make sure to specify the path for the note file in the constructor of the Interface class in main.cpp. The path should point to a file that ends with Note.txt. For example:
 ```cpp
@@ -50,5 +50,6 @@ int main() {
 
     return 0;
 }
+
 
 
