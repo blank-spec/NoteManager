@@ -27,9 +27,7 @@ struct CompareByCompletion {
 class NoteManager {
  private:
   // Path to the file where notes are saved
-  const std::string PATH =
-      "";  // Write to her your prefer path. He must be end by Note.txt. For
-           // example: "C:/Project/Note.txt"
+  const std::string PATH;
   // Container to store notes
   std::vector<Note> notes;
   // Map to track the index of each note by its name
@@ -91,6 +89,7 @@ class NoteManager {
   }
 
  public:
+  NoteManager(const std::string& path) : PATH(path) {}
   // Add a new note or update an existing one
   void addNote(const std::string& name, const std::string& description) {
     bool complete = false;

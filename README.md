@@ -38,7 +38,17 @@
 
 ## Configuration
 
-Make sure to set the path for the note file in the `PATH` variable in the `NoteManager` class. The path should point to a file that ends with `Note.txt`. For example:
+Make sure to specify the path for the note file in the constructor of the Interface class in main.cpp. The path should point to a file that ends with Note.txt. For example:
 ```cpp
-const std::string PATH = "C:/Project/Note.txt";
+#include "src/Interface.h"
+using namespace std;
+
+int main() {
+    // Set your path to the Note.txt file here
+    Interface ui("C:/Project/Note.txt");
+    ui.run();
+
+    return 0;
+}
+
 

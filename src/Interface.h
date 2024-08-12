@@ -18,9 +18,7 @@ class Interface {
   char choice;              // Stores the user's menu choice
 
  public:
-  Interface()
-      : choice(' ') {
-  }  // Default constructor initializing choice to a blank space
+  Interface(const std::string& filePath) : choice(' '), manager(filePath) {}
 
   void run() {
     while (true) {           // Infinite loop to keep the interface running
