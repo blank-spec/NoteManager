@@ -69,8 +69,6 @@ class Interface {
         case '3':  // Change Note Description
           std::cout << "Enter the name of the note to modify: ";
           std::getline(std::cin, name);  // Read the name of the note to modify
-          std::cout << "Enter the new description: ";
-          std::getline(std::cin, description);  // Read the new description
 
           name = name.empty() ? "blank"
                               : name;  // Default to "blank" if input is empty

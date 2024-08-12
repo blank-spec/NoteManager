@@ -56,6 +56,7 @@ class NoteManager {
   // Method to read the notes from the file
   void readFromFile() {
     notes.clear();
+    noteIndex.clear();
     std::ifstream file(PATH);
     if (!file.is_open()) {
       throw std::runtime_error("Unable to open file for reading.");
