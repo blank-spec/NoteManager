@@ -80,8 +80,8 @@ class Interface {
                   : description;  // Default to "blank" if input is empty
 
           try {
-            manager.changeDescription(
-                name);  // Attempt to change the description of the note
+            manager.changeDescription(std::move(
+                name));  // Attempt to change the description of the note
           } catch (const std::exception& e) {
             std::cout
                 << e.what()

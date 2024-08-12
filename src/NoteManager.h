@@ -19,21 +19,19 @@
 
 // Comparator to sort notes by their completion status
 struct CompareByCompletion {
-  auto operator()(const Note& a, const Note& b) const -> bool {
+  bool operator()(const Note& a, const Note& b) const {
     return a.getStatus() < b.getStatus();
   }
 };
 
 class NoteManager {
  private:
-  // Path to the file where notes are saved
-  const std::string PATH;
-  // Container to store notes
-  std::vector<Note> notes;
-  // Map to track the index of each note by its name
-  std::unordered_map<std::string, size_t> noteIndex;
+  const std::string PATH;   // Path to the file where notes are stored
+  std::vector<Note> notes;  // Vector to store the notes
+  std::unordered_map<std::string, size_t>
+      noteIndex;  // Map to quickly find a note by its name
 
-  // Save all notes to the file
+  // Method to save the notes to the file
   void safeToFile() const {
     std::ofstream file(PATH);
     if (!file.is_open()) {
@@ -47,15 +45,15 @@ class NoteManager {
     file.close();
   }
 
-  // Trim leading and trailing whitespace from a string
-  auto trim(const std::string& str) const -> std::string {
+  // Method to trim leading and trailing whitespace from a string
+  std::string trim(const std::string& str) const {
     const auto start = str.find_first_not_of(" \t");
     if (start == std::string::npos) return "";
     const auto end = str.find_last_not_of(" \t");
     return str.substr(start, end - start + 1);
   }
 
-  // Read notes from the file and load them into the vector
+  // Method to read the notes from the file
   void readFromFile() {
     notes.clear();
     std::ifstream file(PATH);
@@ -83,14 +81,16 @@ class NoteManager {
     file.close();
   }
 
-  // Sort notes by their completion status
+  // Method to sort the notes by their completion status
   void sortNotesByCompletion() {
     std::sort(notes.begin(), notes.end(), CompareByCompletion());
   }
 
  public:
+  // Constructor to initialize the NoteManager with the path to the file
   NoteManager(const std::string& path) : PATH(path) {}
-  // Add a new note or update an existing one
+
+  // Method to add a new note
   void addNote(const std::string& name, const std::string& description) {
     bool complete = false;
 
@@ -109,7 +109,7 @@ class NoteManager {
       if (choice == "u") {
         notes[it->second].setDescription(description);
       } else {
-        std::cout << "Note not modified.\n";
+        std::cout << "Note not modified." << std::endl;
       }
     } else {
       notes.emplace_back(std::move(name), std::move(description), complete);
@@ -119,7 +119,7 @@ class NoteManager {
     safeToFile();
   }
 
-  // Delete a note by its name
+  // Method to delete a note
   void deleteNote(const std::string& name) {
     auto it = noteIndex.find(name);
     if (it != noteIndex.end()) {
@@ -136,11 +136,11 @@ class NoteManager {
       safeToFile();
     } else {
       const std::string error = std::format("Note '{}' not found", name);
-      throw std::invalid_argument(std::move(error));
+      throw std::invalid_argument(error);
     }
   }
 
-  // Change the description of an existing note
+  // Method to change the description of a note
   void changeDescription(const std::string& name) {
     auto it = noteIndex.find(name);
     if (it != noteIndex.end()) {
@@ -152,11 +152,11 @@ class NoteManager {
       safeToFile();
     } else {
       const std::string error = std::format("Note '{}' not found", name);
-      throw std::invalid_argument(std::move(error));
+      throw std::invalid_argument(error);
     }
   }
 
-  // Toggle the completion status of a note
+  // Method to change the completion status of a note
   void changeStatus(const std::string& name) {
     auto it = noteIndex.find(name);
     if (it != noteIndex.end()) {
@@ -165,11 +165,11 @@ class NoteManager {
       safeToFile();
     } else {
       const std::string error = std::format("Note '{}' not found", name);
-      throw std::invalid_argument(std::move(error));
+      throw std::invalid_argument(error);
     }
   }
 
-  // Print all notes
+  // Method to print all the notes
   void printNotes() {
     readFromFile();
     if (notes.empty()) {
