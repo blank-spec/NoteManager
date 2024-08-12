@@ -1,0 +1,9 @@
+.vscode/
+build/
+CmakeFiles/
+.clang-tidyy
+.clangd
+.clang-format
+cmake_install.cmake
+CmakeCache.txt
+CmakeLists.txt
