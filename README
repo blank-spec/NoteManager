@@ -1,43 +1,43 @@
-# NoteManager
+# BankProject
 
-`NoteManager` is a simple note management application. It allows you to add, delete, and modify notes, as well as toggle their completion status. Notes are saved in a text file.
+This is a simple C++ project demonstrating various functionalities including file management, password handling, and transactions.
 
-## Description
+## Features
+- local registration
+- manage balance
+- transaction history
+- manage transaction history
 
-`NoteManager` provides functionality for:
-- Adding new notes or updating existing ones.
-- Deleting notes.
-- Changing the description of notes.
-- Toggling the completion status of notes.
-- Printing all notes.
+## Technologies
+This project utilizes the following technologies and concepts:
+- Object-Oriented Programming (OOP)
+- Working with files
+- Logging
+- Templates
 
-## Installation
+## Getting started
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/blank-spec/NoteManager
-    ```
+### Prerequisites
+- C++ compiler 
+
+### Building
+1. Clone the repo:
+```bash
+git clone https://github.com/blank-spec/BankProject.git
+```
 
 2. Navigate to the project directory:
-    ```bash
-    cd NoteManager
-    ```
+```bash
+cd BankProject
+```
 
-3. Create a build directory and build the project:
-    ```bash
-    mkdir build
-    cd build
-    cmake ..
-    make
-    ```
+3. Compile the project:
+```bash
+g++ -o Bank Main.cpp
+```
 
-4. Run the project:
-    ```bash
-    ./NoteManager
-    ```
-
-## Configuration
-
-Make sure to set the path for the note file in the `PATH` variable in the `NoteManager` class. The path should point to a file that ends with `Note.txt`. For example:
-```cpp
-const std::string PATH = "C:/Project/Note.txt";
+### Usage
+Run the compiled executable:
+```bash
+./Bank
+```
