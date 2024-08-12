@@ -41,3 +41,4 @@
 Make sure to set the path for the note file in the `PATH` variable in the `NoteManager` class. The path should point to a file that ends with `Note.txt`. For example:
 ```cpp
 const std::string PATH = "C:/Project/Note.txt";
+
