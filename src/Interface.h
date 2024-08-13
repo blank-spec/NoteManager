@@ -98,8 +98,7 @@ class Interface {
           name = name.empty() ? "blank" : name;  // Default to "blank" if input is empty
 
           try {
-            manager.changeStatus(
-                std::move(name));  // Attempt to change the status of the note
+            manager.changeStatus(std::move(name));  // Attempt to change the status of the note
           } catch (const std::exception& e) {
             std::cout << e.what() << std::endl;  // Print error message if modification fails
           }
