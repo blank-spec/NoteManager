@@ -1,12 +1,9 @@
 #pragma once
 #include <exception>
-#include <ios>
 #include <iostream>
 #include <istream>
 #include <limits>
-#include <ostream>
 #include <string>
-#include <utility>
 
 #include "NoteManager.h"
 
