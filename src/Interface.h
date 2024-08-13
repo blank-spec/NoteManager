@@ -34,9 +34,8 @@ class Interface {
       std::cout << "5. Print All Notes" << std::endl;
       std::cout << "6. Exit" << std::endl;
       std::cout << "Choose an option: ";
-      std::cin >> choice;  // Read user's choice
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
-                      '\n');  // Ignore remaining input
+      std::cin >> choice;                                                  // Read user's choice
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Ignore remaining input
 
       switch (choice) {
         case '1':  // Add Note
@@ -49,9 +48,7 @@ class Interface {
           name = name.empty() ? "blank" : name;
           description = description.empty() ? "blank" : description;
 
-          manager.addNote(
-              std::move(name),
-              std::move(description));  // Add the note to the manager
+          manager.addNote(std::move(name), std::move(description));  // Add the note to the manager
           std::cout << "==================" << std::endl;
           break;
 
@@ -62,14 +59,13 @@ class Interface {
           }
 
           std::cout << "Enter the name of the note to delete: ";
-          std::getline(std::cin, name);  // Read the name of the note to delete
-          name = name.empty() ? "blank"
-                              : name;  // Default to "blank" if input is empty
+          std::getline(std::cin, name);          // Read the name of the note to delete
+          name = name.empty() ? "blank" : name;  // Default to "blank" if input is empty
+
           try {
             manager.deleteNote(std::move(name));  // Attempt to delete the note
           } catch (const std::exception& e) {
-            std::cout << e.what()
-                      << std::endl;  // Print error message if deletion fails
+            std::cout << e.what() << std::endl;  // Print error message if deletion fails
           }
           std::cout << "==================" << std::endl;
           break;
@@ -83,20 +79,13 @@ class Interface {
           std::cout << "Enter the name of the note to modify: ";
           std::getline(std::cin, name);  // Read the name of the note to modify
 
-          name = name.empty() ? "blank"
-                              : name;  // Default to "blank" if input is empty
-          description =
-              description.empty()
-                  ? "blank"
-                  : description;  // Default to "blank" if input is empty
+          name = name.empty() ? "blank" : name;                       // Default to "blank" if input is empty
+          description = description.empty() ? "blank" : description;  // Default to "blank" if input is empty
 
           try {
-            manager.changeDescription(std::move(
-                name));  // Attempt to change the description of the note
+            manager.changeDescription(std::move(name));  // Attempt to change the description of the note
           } catch (const std::exception& e) {
-            std::cout
-                << e.what()
-                << std::endl;  // Print error message if modification fails
+            std::cout << e.what() << std::endl;  // Print error message if modification fails
           }
           std::cout << "==================" << std::endl;
           break;
@@ -108,16 +97,14 @@ class Interface {
           }
 
           std::cout << "Enter the name of the note to modify: ";
-          std::getline(std::cin, name);  // Read the name of the note to modify
-          name = name.empty() ? "blank"
-                              : name;  // Default to "blank" if input is empty
+          std::getline(std::cin, name);          // Read the name of the note to modify
+          name = name.empty() ? "blank" : name;  // Default to "blank" if input is empty
+
           try {
             manager.changeStatus(
                 std::move(name));  // Attempt to change the status of the note
           } catch (const std::exception& e) {
-            std::cout
-                << e.what()
-                << std::endl;  // Print error message if modification fails
+            std::cout << e.what() << std::endl;  // Print error message if modification fails
           }
           std::cout << "==================" << std::endl;
           break;
@@ -131,8 +118,8 @@ class Interface {
           return;
 
         default:
-          std::cout << "Invalid option. Please try again."
-                    << std::endl;  // Handle invalid menu choices
+          std::cout << "Invalid option. Please try again." << std::endl;  // Handle invalid menu choices
+
           std::cout << "==================" << std::endl;
           break;
       }

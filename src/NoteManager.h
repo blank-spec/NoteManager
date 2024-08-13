@@ -26,10 +26,9 @@ struct CompareByCompletion {
 
 class NoteManager {
  private:
-  const std::string PATH;   // Path to the file where notes are stored
-  std::vector<Note> notes;  // Vector to store the notes
-  std::unordered_map<std::string, size_t>
-      noteIndex;  // Map to quickly find a note by its name
+  const std::string PATH;                             // Path to the file where notes are stored
+  std::vector<Note> notes;                            // Vector to store the notes
+  std::unordered_map<std::string, size_t> noteIndex;  // Map to quickly find a note by its name
 
   // Method to save the notes to the file
   void safeToFile() const {
@@ -89,7 +88,7 @@ class NoteManager {
 
  public:
   // Constructor to initialize the NoteManager with the path to the file
-  NoteManager(const std::string& path) : PATH(path) {}
+  explicit NoteManager(const std::string& path) : PATH(path) {}
 
   // Method to add a new note
   void addNote(const std::string& name, const std::string& description) {
@@ -98,9 +97,7 @@ class NoteManager {
     auto it = noteIndex.find(name);
 
     if (it != noteIndex.end()) {
-      std::cout
-          << "Note with this name already exists. What would you like to do?"
-          << std::endl;
+      std::cout << "Note with this name already exists. What would you like to do?" << std::endl;
       std::cout << "Enter 'u' to update the existing note or 'q' to quit: ";
       std::string choice;
       std::getline(std::cin, choice);

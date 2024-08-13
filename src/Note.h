@@ -11,12 +11,10 @@ class Note {
  public:
   // Constructor to initialize the note with name, description, and optional
   // status
-  Note(const std::string& name, const std::string& description,
-       bool complete = false)
-      : name(std::move(name)),  // Move name to avoid unnecessary copy
-        description(std::move(
-            description)),     // Move description to avoid unnecessary copy
-        complete(complete) {}  // Initialize status
+  Note(const std::string& name, const std::string& description, bool complete = false)
+      : name(std::move(name)),                // Move name to avoid unnecessary copy
+        description(std::move(description)),  // Move description to avoid unnecessary copy
+        complete(complete) {}                 // Initialize status
 
   // Getter for the note's name
   const std::string& getName() const { return name; }
@@ -45,7 +43,6 @@ class Note {
 // Definition of the overloaded output operator
 inline std::ostream& operator<<(std::ostream& os, const Note& note) {
   os << note.getName() << ": " << note.getDescription() << ": "
-     << (note.getStatus() ? "Complete"
-                          : "Not complete");  // Print status based on its value
+     << (note.getStatus() ? "Complete" : "Not complete");  // Print status based on its value
   return os;
 }
