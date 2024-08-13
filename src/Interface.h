@@ -25,9 +25,12 @@ class Interface {
       manager.printNotes();  // Print all notes
       std::cout << "\nMenu:" << std::endl;
       std::cout << "1. Add Note" << std::endl;
-      std::cout << "2. Delete Note" << std::endl;
-      std::cout << "3. Change Note Description" << std::endl;
-      std::cout << "4. Change Note Status" << std::endl;
+
+      if (!manager.isEmpty()) {
+        std::cout << "2. Delete Note" << std::endl;
+        std::cout << "3. Change Note Description" << std::endl;
+        std::cout << "4. Change Note Status" << std::endl;
+      }
       std::cout << "5. Print All Notes" << std::endl;
       std::cout << "6. Exit" << std::endl;
       std::cout << "Choose an option: ";
@@ -53,6 +56,11 @@ class Interface {
           break;
 
         case '2':  // Delete Note
+          if (manager.isEmpty()) {
+            std::cout << "Invalid option. Please try again." << std::endl;
+            break;
+          }
+
           std::cout << "Enter the name of the note to delete: ";
           std::getline(std::cin, name);  // Read the name of the note to delete
           name = name.empty() ? "blank"
@@ -67,6 +75,11 @@ class Interface {
           break;
 
         case '3':  // Change Note Description
+          if (manager.isEmpty()) {
+            std::cout << "Invalid option. Please try again." << std::endl;
+            break;
+          }
+
           std::cout << "Enter the name of the note to modify: ";
           std::getline(std::cin, name);  // Read the name of the note to modify
 
@@ -89,6 +102,11 @@ class Interface {
           break;
 
         case '4':  // Change Note Status
+          if (manager.isEmpty()) {
+            std::cout << "Invalid option. Please try again." << std::endl;
+            break;
+          }
+
           std::cout << "Enter the name of the note to modify: ";
           std::getline(std::cin, name);  // Read the name of the note to modify
           name = name.empty() ? "blank"

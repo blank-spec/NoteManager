@@ -181,4 +181,6 @@ class NoteManager {
       }
     }
   }
+
+  bool isEmpty() const { return notes.empty(); }
 };
