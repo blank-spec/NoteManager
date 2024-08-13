@@ -45,7 +45,7 @@ using namespace std;
 
 int main() {
     // Set your path to the Note.txt file here
-    Interface ui("C:/Project/Note.txt");
+    Interface ui("Path/To/Your/Note.txt");
     ui.run();
 
     return 0;
