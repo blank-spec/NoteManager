@@ -92,7 +92,7 @@ class Interface {
            std::cout << "==================" << std::endl;
          }},
         {'6', [&]() {
-           exit(0);  // Выход из программы
+           exit(0);  // Exit from the program
          }}};
 
     while (true) {           // Infinite loop to keep the interface running
