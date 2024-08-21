@@ -5,7 +5,7 @@
 using namespace std;
 
 int main() {
-  Interface ui("C:/Bank/Note.txt");
+  Interface ui("Path/To/Your/Note.txt");
   ui.run();
 
   return 0;
