@@ -22,8 +22,10 @@ class Interface {
   Interface(const std::string& filePath) : choice(' '), manager(filePath) {}
 
   void run() {
+    manager.readFromFile();
     std::unordered_map<char, std::function<void()>> actions = {
-        {'1', [&]() {
+        {'1',
+         [&]() {
            std::cout << "Enter the note's name: ";
            std::getline(std::cin, name);
            std::cout << "Enter the note's description: ";
@@ -35,7 +37,8 @@ class Interface {
            manager.addNote(std::move(name), std::move(description));
            std::cout << "==================" << std::endl;
          }},
-        {'2', [&]() {
+        {'2',
+         [&]() {
            if (manager.isEmpty()) {
              std::cout << "Invalid option. Please try again." << std::endl;
              return;
@@ -51,15 +54,14 @@ class Interface {
            }
            std::cout << "==================" << std::endl;
          }},
-        {'3', [&]() {
+        {'3',
+         [&]() {
            if (manager.isEmpty()) {
              std::cout << "Invalid option. Please try again." << std::endl;
              return;
            }
            std::cout << "Enter the name of the note to modify: ";
            std::getline(std::cin, name);
-           std::cout << "Enter the new description: ";
-           std::getline(std::cin, description);
 
            name = name.empty() ? "blank" : name;
            description = description.empty() ? "blank" : description;
@@ -71,7 +73,8 @@ class Interface {
            }
            std::cout << "==================" << std::endl;
          }},
-        {'4', [&]() {
+        {'4',
+         [&]() {
            if (manager.isEmpty()) {
              std::cout << "Invalid option. Please try again." << std::endl;
              return;
@@ -87,11 +90,13 @@ class Interface {
            }
            std::cout << "==================" << std::endl;
          }},
-        {'5', [&]() {
+        {'5',
+         [&]() {
            manager.printNotes();
            std::cout << "==================" << std::endl;
          }},
         {'6', [&]() {
+           manager.safeToFile();
            exit(0);  // Exit from the program
          }}};
 
@@ -108,8 +113,9 @@ class Interface {
       std::cout << "5. Print All Notes" << std::endl;
       std::cout << "6. Exit" << std::endl;
       std::cout << "Choose an option: ";
-      std::cin >> choice;                                                  // Read user's choice
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Ignore remaining input
+      std::cin >> choice;  // Read user's choice
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
+                      '\n');  // Ignore remaining input
 
       if (actions.find(choice) != actions.end()) {
         actions[choice]();

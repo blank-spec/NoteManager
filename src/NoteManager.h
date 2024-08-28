@@ -25,23 +25,10 @@ struct CompareByCompletion {
 
 class NoteManager {
  private:
-  const std::string PATH;                             // Path to the file where notes are stored
-  std::vector<Note> notes;                            // Vector to store the notes
-  std::unordered_map<std::string, size_t> noteIndex;  // Map to quickly find a note by its name
-
-  // Method to save the notes to the file
-  void safeToFile() const {
-    std::ofstream file(PATH);
-    if (!file.is_open()) {
-      throw std::runtime_error("Unable to open file for writing.");
-    }
-
-    for (const auto& note : notes) {
-      file << note.getName() << ": " << note.getDescription() << ": "
-           << (note.getStatus() ? "Complete" : "Not complete") << std::endl;
-    }
-    file.close();
-  }
+  const std::string PATH;   // Path to the file where notes are stored
+  std::vector<Note> notes;  // Vector to store the notes
+  std::unordered_map<std::string, size_t>
+      noteIndex;  // Map to quickly find a note by its name
 
   // Method to trim leading and trailing whitespace from a string
   std::string trim(const std::string& str) const {
@@ -51,6 +38,11 @@ class NoteManager {
     return str.substr(start, end - start + 1);
   }
 
+ public:
+  // Method to sort the notes by their completion status
+  void sortNotesByCompletion() {
+    std::sort(notes.begin(), notes.end(), CompareByCompletion());
+  }
   // Method to read the notes from the file
   void readFromFile() {
     notes.clear();
@@ -80,12 +72,19 @@ class NoteManager {
     file.close();
   }
 
-  // Method to sort the notes by their completion status
-  void sortNotesByCompletion() {
-    std::sort(notes.begin(), notes.end(), CompareByCompletion());
-  }
+  // Method to save the notes to the file
+  void safeToFile() const {
+    std::ofstream file(PATH);
+    if (!file.is_open()) {
+      throw std::runtime_error("Unable to open file for writing.");
+    }
 
- public:
+    for (const auto& note : notes) {
+      file << note.getName() << ": " << note.getDescription() << ": "
+           << (note.getStatus() ? "Complete" : "Not complete") << std::endl;
+    }
+    file.close();
+  }
   // Constructor to initialize the NoteManager with the path to the file
   explicit NoteManager(const std::string& path) : PATH(path) {}
 
@@ -96,7 +95,9 @@ class NoteManager {
     auto it = noteIndex.find(name);
 
     if (it != noteIndex.end()) {
-      std::cout << "Note with this name already exists. What would you like to do?" << std::endl;
+      std::cout
+          << "Note with this name already exists. What would you like to do?"
+          << std::endl;
       std::cout << "Enter 'u' to update the existing note or 'q' to quit: ";
       std::string choice;
       std::getline(std::cin, choice);
@@ -113,7 +114,6 @@ class NoteManager {
       noteIndex[name] = notes.size() - 1;
     }
     sortNotesByCompletion();
-    safeToFile();
   }
 
   // Method to delete a note
@@ -130,7 +130,6 @@ class NoteManager {
       }
 
       std::cout << std::format("Note '{}' was deleted", name) << std::endl;
-      safeToFile();
     } else {
       const std::string error = std::format("Note '{}' not found", name);
       throw std::invalid_argument(error);
@@ -146,7 +145,6 @@ class NoteManager {
       std::getline(std::cin, description);
       description = description.empty() ? "blank" : description;
       notes[it->second].setDescription(description);
-      safeToFile();
     } else {
       const std::string error = std::format("Note '{}' not found", name);
       throw std::invalid_argument(error);
@@ -159,7 +157,6 @@ class NoteManager {
     if (it != noteIndex.end()) {
       notes[it->second].setStatus(!notes[it->second].getStatus());
       sortNotesByCompletion();
-      safeToFile();
     } else {
       const std::string error = std::format("Note '{}' not found", name);
       throw std::invalid_argument(error);
@@ -168,7 +165,6 @@ class NoteManager {
 
   // Method to print all the notes
   void printNotes() {
-    readFromFile();
     if (notes.empty()) {
       std::cout << "No notes available" << std::endl;
     } else {
