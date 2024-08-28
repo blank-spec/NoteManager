@@ -38,11 +38,12 @@ class NoteManager {
     return str.substr(start, end - start + 1);
   }
 
- public:
   // Method to sort the notes by their completion status
   void sortNotesByCompletion() {
     std::sort(notes.begin(), notes.end(), CompareByCompletion());
   }
+
+ public:
   // Method to read the notes from the file
   void readFromFile() {
     notes.clear();
