@@ -54,6 +54,8 @@ class NoteManager {
   }
 
  public:
+  // Constructor to initialize the NoteManager with the path to the file
+  explicit NoteManager(const std::string& path) : PATH(path) {}
   // Method to read the notes from the file
   void readFromFile() {
     notes.clear();
@@ -96,9 +98,6 @@ class NoteManager {
     }
     file.close();
   }
-  // Constructor to initialize the NoteManager with the path to the file
-  explicit NoteManager(const std::string& path) : PATH(path) {}
-
   // Method to add a new note
   void addNote(const std::string& name, const std::string& description) {
     bool complete = false;
