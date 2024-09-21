@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <istream>
+#include <iterator>
 #include <ostream>
 #include <sstream>
 #include <stdexcept>
@@ -41,6 +42,15 @@ class NoteManager {
   // Method to sort the notes by their completion status
   void sortNotesByCompletion() {
     std::sort(notes.begin(), notes.end(), CompareByCompletion());
+  }
+
+  int findNoteIndex(const std::string& name) {
+    auto it = noteIndex.find(name);
+    if (it == noteIndex.end()) {
+      throw std::invalid_argument(std::format("Note '{}' not found", name));
+    }
+
+    return it->second;
   }
 
  public:
@@ -119,48 +129,43 @@ class NoteManager {
 
   // Method to delete a note
   void deleteNote(const std::string& name) {
-    auto it = noteIndex.find(name);
-    if (it != noteIndex.end()) {
-      size_t index = it->second;
+    try {
+      int index = findNoteIndex(name);
       notes.erase(notes.begin() + index);
-      noteIndex.erase(it);
+      noteIndex.erase(name);
 
       // Update indices of the remaining notes
-      for (size_t i = index; i < notes.size(); ++i) {
+      for (std::size_t i = index; i < notes.size(); ++i) {
         noteIndex[notes[i].getName()] = i;
       }
 
       std::cout << std::format("Note '{}' was deleted", name) << std::endl;
-    } else {
-      const std::string error = std::format("Note '{}' not found", name);
-      throw std::invalid_argument(error);
+    } catch (const std::invalid_argument& e) {
+      std::cout << e.what() << std::endl;
     }
   }
 
   // Method to change the description of a note
   void changeDescription(const std::string& name) {
-    auto it = noteIndex.find(name);
-    if (it != noteIndex.end()) {
+    try {
+      int index = findNoteIndex(name);
       std::string description;
       std::cout << "Enter the new description: ";
       std::getline(std::cin, description);
       description = description.empty() ? "blank" : description;
-      notes[it->second].setDescription(description);
-    } else {
-      const std::string error = std::format("Note '{}' not found", name);
-      throw std::invalid_argument(error);
+    } catch (const std::invalid_argument& e) {
+      std::cout << e.what() << std::endl;
     }
   }
 
   // Method to change the completion status of a note
   void changeStatus(const std::string& name) {
-    auto it = noteIndex.find(name);
-    if (it != noteIndex.end()) {
-      notes[it->second].setStatus(!notes[it->second].getStatus());
+    try {
+      int index = findNoteIndex(name);
+      notes[index].setStatus(!notes[index].getStatus());
       sortNotesByCompletion();
-    } else {
-      const std::string error = std::format("Note '{}' not found", name);
-      throw std::invalid_argument(error);
+    } catch (const std::invalid_argument& e) {
+      std::cout << e.what() << std::endl;
     }
   }
 
